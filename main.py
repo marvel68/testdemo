@@ -1,6 +1,7 @@
 import logging
 import multiprocessing
 import sys
+from threading import Thread
 import run
 
 from PyQt5 import QtWidgets
@@ -27,7 +28,7 @@ class Window(QWidget, Ui_Dialog):
     def buttonClick(self):
         self.textBrowser.clear()
         self.runner=run.runner(self.Logger)
-        self.thread = ResThread(target=self.runner.run)
+        self.thread = Thread(target=self.runner.run)
         self.thread.start()
 
 if __name__ == "__main__":
