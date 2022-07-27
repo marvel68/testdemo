@@ -1,17 +1,14 @@
-from PyQt5.QtCore import QThread
+import threading
 
-from run import run
+class ResThread(threading.Thread):
+    def __init__(self, target, args=()):
+        threading.Thread.__init__(self)
+        self.func = target
+        self.args = args
+        self.result = self.func(*self.args)
 
-
-class Example(QThread):
-
-    def __init__(self):
-        super(Example, self).__init__()
-
-
-
-    def run(self):
-        """
-        进行任务操作，主要的逻辑操作,返回结果
-        """
-        run()
+    def get_result(self):
+        try:
+            return self.result
+        except Exception as e:
+            return str(e)
